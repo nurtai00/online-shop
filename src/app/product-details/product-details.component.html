@@ -1,17 +1,27 @@
 <h2>Product Details</h2>
 
 <div *ngIf="product">
-  <h3>{{ product.name }}</h3>
-  <h4>{{ product.price | currency }}</h4>
-  <div>
-    <p>{{ product.description }}</p>
+	<h3>{{ product.name }}</h3>
+	<h4>{{ product.price | currency }}</h4>
+	<div>
+		<p>{{ product.description }}</p>
+	</div>
+	<h4 class="ratio" *ngIf="product.rating">
+		Rating: {{product.rating}}
+	</h4>
+	<div>
+		<img src={{product.imagesource}} width="25%" />
   </div>
-  <h4>{{product.rating}}</h4>
-  <div>
-  <img src={{product.imagesource}} />
-  </div>
-  <div>
-  <a>{{product.source}}</a>
-  </div>
-  <button (click)="addToCart(product)">Buy</button>
-</div>
+		<div>
+			<a href={{product.source}}>
+				Go to Amazon
+			</a>
+
+			<share-buttons class="share" [theme]="'material-dark'" [include]="['whatsapp','telegram']" [show]="2"
+				[size]="10" [url]="'product.source'" [autoSetMeta]="false"></share-buttons>
+
+			<app-product-alerts [product]="product" (notify)="onNotify()">
+			</app-product-alerts>
+		</div><br>
+		<button (click)="addToCart(product)">Buy</button>
+	</div>
